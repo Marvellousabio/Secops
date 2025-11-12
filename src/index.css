@@ -12,6 +12,10 @@
   --color-success-rgb: 40, 167, 69;
   --color-danger-rgb: 220, 53, 69;
 
+  /* Additional brand shades used to map Tailwind 'blue' utilities to brand */
+  --color-brand-primary-600: #AE328E; /* primary */
+  --color-brand-primary-700: #8A1F6B; /* darker hover/active */
+
   /* Default (fallback to light mode values) */
   --bg-primary: #FFFFFF; /* Light mode default background */
   --bg-surface: #FFFFFF;
@@ -197,3 +201,34 @@ a {
   color: var(--color-success);
   border: 1px solid rgba(var(--color-success-rgb), 0.12);
 }
+
+/* -------------------------------------------------------------------------- */
+/* Map common Tailwind blue utilities to the project's brand palette so buttons */
+/* and blue UI elements follow the color design system.                        */
+/* Use !important so these theme mappings override generated utilities when     */
+/* Tailwind classes are applied directly in components.                         */
+/* -------------------------------------------------------------------------- */
+
+/* Backgrounds */
+.bg-blue-600 { background-color: var(--color-brand-primary-600) !important; }
+.hover\:bg-blue-700:hover { background-color: var(--color-brand-primary-700) !important; }
+.bg-blue-500 { background-color: var(--color-brand-primary-600) !important; }
+.bg-blue-50 { background-color: rgba(var(--color-brand-primary-rgb), 0.06) !important; }
+.bg-blue-500\/20 { background-color: rgba(var(--color-brand-primary-rgb), 0.20) !important; }
+
+/* Text colors */
+.text-blue-700 { color: var(--color-brand-primary-700) !important; }
+.text-blue-600 { color: var(--color-brand-primary-600) !important; }
+.text-blue-400 { color: rgba(var(--color-brand-primary-rgb), 0.85) !important; }
+
+/* Borders */
+.border-blue-300 { border-color: rgba(var(--color-brand-primary-rgb), 0.28) !important; }
+
+/* Gradient helpers (map gradient start color) */
+.from-blue-500 { --tw-gradient-from: var(--color-brand-primary-600); }
+
+/* Small utility dots / badges */
+.bg-blue-500\.h-2, .bg-blue-500.h-2, .bg-blue-500.h-2\.rounded-full { background-color: var(--color-brand-primary-600) !important; }
+
+/* Fallback for hover utilities that use the combined form (e.g., hover:bg-blue-700) */
+.hover\:text-blue-400:hover { color: rgba(var(--color-brand-primary-rgb), 0.85) !important; }
