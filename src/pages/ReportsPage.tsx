@@ -8,7 +8,7 @@ const ReportsPage: React.FC<{ darkMode: boolean }> = ({ darkMode }) => {
         <h1 className={`text-3xl font-bold  ${darkMode ? 'text-white' : 'text-gray-600'}`}>Reports & Compliance</h1>
         <div className="flex items-center space-x-4">
             
-          <select className={` border rounded-lg px-4 py-2  ${darkMode ? 'bg-gray-800 border-gray-700  text-white' : 'bg-gray-200 text-gray-800'}`}>
+          <select  aria-label='option' className={` border rounded-lg px-4 py-2  ${darkMode ? 'bg-gray-800 border-gray-700  text-white' : 'bg-gray-200 text-gray-800'}`}>
             <option>Q4 2025</option>
             <option>Q3 2025</option>
             <option>Q2 2025</option>

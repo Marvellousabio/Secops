@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import {
   ChevronDown,
@@ -21,83 +21,109 @@ import ReportsPage from './pages/ReportsPage';
 import UserProfileModal from './components/UserProfileModal';
 
 const App = () => {
-  const [currentPage, setCurrentPage] = useState('dashboard');
-  const [sidebarOpen, setSidebarOpen] = useState(true);
-  const [darkMode, setDarkMode] = useState(true);
-  const [userRevealed, setUserRevealed] = useState<{ [key: string]: boolean }>({});
-  const [alerts, setAlerts] = useState<Array<{
-    id: string;
-    severity: string;
-    title: string;
-    user: string;
-    time: string;
-    status: string;
-  }>>([]);
-  const [users, setUsers] = useState<Array<{
-    id: string;
-    name: string;
-    riskScore: number;
-    anomalies: number;
-    lastActive: string;
-    department: string;
-    peerComparison: number;
-  }>>([]);
-  const [selectedUser, setSelectedUser] = useState<any>(null);
-  const [profileTab, setProfileTab] = useState('overview');
+   const [currentPage, setCurrentPage] = useState('dashboard');
+   const [sidebarOpen, setSidebarOpen] = useState(true);
+   const [darkMode, setDarkMode] = useState(true);
+   const [userRevealed, setUserRevealed] = useState<{ [key: string]: boolean }>({});
+   const [alerts, setAlerts] = useState<Array<{
+     id: string;
+     severity: string;
+     title: string;
+     user: string;
+     time: string;
+     status: string;
+   }>>([
+     { id: 'AL-7821', severity: 'critical', title: 'Unusual Data Exfiltration', user: 'U-4582', time: '2 min ago', status: 'open' },
+     { id: 'AL-7822', severity: 'high', title: 'Multiple Failed Logins', user: 'U-2391', time: '8 min ago', status: 'acknowledged' },
+     { id: 'AL-7823', severity: 'medium', title: 'Privilege Escalation Attempt', user: 'U-8901', time: '23 min ago', status: 'open' },
+     { id: 'AL-7824', severity: 'low', title: 'Policy Violation', user: 'U-1245', time: '1 hour ago', status: 'resolved' }
+   ]);
+   const [users] = useState<Array<{
+     id: string;
+     name: string;
+     riskScore: number;
+     anomalies: number;
+     lastActive: string;
+     department: string;
+     peerComparison: number;
+   }>>([
+     {
+       id: 'U-4582',
+       name: 'John Doe',
+       riskScore: 87,
+       anomalies: 3,
+       lastActive: '5 min ago',
+       department: 'Engineering',
+       peerComparison: 85
+     },
+     {
+       id: 'U-2391',
+       name: 'Emily Chen',
+       riskScore: 65,
+       anomalies: 1,
+       lastActive: '12 min ago',
+       department: 'Finance',
+       peerComparison: 62
+     },
+     {
+       id: 'U-8901',
+       name: 'Marcus Johnson',
+       riskScore: 92,
+       anomalies: 5,
+       lastActive: '2 min ago',
+       department: 'HR',
+       peerComparison: 94
+     },
+     {
+       id: 'U-1245',
+       name: 'Sophia Williams',
+       riskScore: 23,
+       anomalies: 0,
+       lastActive: '1 hour ago',
+       department: 'Marketing',
+       peerComparison: 20
+     }
+   ]);
+   const [selectedUser, setSelectedUser] = useState<{
+     id: string;
+     riskScore: number;
+     anomalies: number;
+     lastActive: string;
+     department: string;
+     name: string;
+     email: string;
+     title: string;
+     location: string;
+     manager: string;
+     hireDate: string;
+     accessLevel: string;
+     devices: number;
+     applications: number;
+     dataAccess: string;
+     peerComparison: number;
+     behavioralTrends: Array<{
+       date: string;
+       score: number;
+       loginCount: number;
+       dataAccess: number;
+       anomalies: number;
+     }>;
+     recentActivities: Array<{
+       action: string;
+       time: string;
+       risk: string;
+     }>;
+     riskFactors: Array<{
+       factor: string;
+       score: number;
+     }>;
+   } | null>(null);
+   const [profileTab, setProfileTab] = useState('overview');
 
-  const websocketRef = useRef<WebSocket | null>(null);
+   const websocketRef = useRef<WebSocket | null>(null);
 
-  // Mock data initialization
+  // Setup WebSocket for real-time updates
   useEffect(() => {
-    // Mock alerts data
-    setAlerts([
-      { id: 'AL-7821', severity: 'critical', title: 'Unusual Data Exfiltration', user: 'U-4582', time: '2 min ago', status: 'open' },
-      { id: 'AL-7822', severity: 'high', title: 'Multiple Failed Logins', user: 'U-2391', time: '8 min ago', status: 'acknowledged' },
-      { id: 'AL-7823', severity: 'medium', title: 'Privilege Escalation Attempt', user: 'U-8901', time: '23 min ago', status: 'open' },
-      { id: 'AL-7824', severity: 'low', title: 'Policy Violation', user: 'U-1245', time: '1 hour ago', status: 'resolved' }
-    ]);
-
-    // Mock users data
-    setUsers([
-      {
-        id: 'U-4582',
-        name: 'John Doe',
-        riskScore: 87,
-        anomalies: 3,
-        lastActive: '5 min ago',
-        department: 'Engineering',
-        peerComparison: 85
-      },
-      {
-        id: 'U-2391',
-        name: 'Emily Chen',
-        riskScore: 65,
-        anomalies: 1,
-        lastActive: '12 min ago',
-        department: 'Finance',
-        peerComparison: 62
-      },
-      {
-        id: 'U-8901',
-        name: 'Marcus Johnson',
-        riskScore: 92,
-        anomalies: 5,
-        lastActive: '2 min ago',
-        department: 'HR',
-        peerComparison: 94
-      },
-      {
-        id: 'U-1245',
-        name: 'Sophia Williams',
-        riskScore: 23,
-        anomalies: 0,
-        lastActive: '1 hour ago',
-        department: 'Marketing',
-        peerComparison: 20
-      }
-    ]);
-
-    // Setup WebSocket for real-time updates
     websocketRef.current = new WebSocket('wss://mock-api.securityops.com/ws');
     websocketRef.current.onmessage = (event) => {
       const data = JSON.parse(event.data);
@@ -120,7 +146,40 @@ const App = () => {
     }));
   };
 
-  const openUserProfile = (user: any) => {
+  const openUserProfile = (user: {
+    id: string;
+    riskScore: number;
+    anomalies: number;
+    lastActive: string;
+    department: string;
+    name: string;
+    email: string;
+    title: string;
+    location: string;
+    manager: string;
+    hireDate: string;
+    accessLevel: string;
+    devices: number;
+    applications: number;
+    dataAccess: string;
+    peerComparison: number;
+    behavioralTrends: Array<{
+      date: string;
+      score: number;
+      loginCount: number;
+      dataAccess: number;
+      anomalies: number;
+    }>;
+    recentActivities: Array<{
+      action: string;
+      time: string;
+      risk: string;
+    }>;
+    riskFactors: Array<{
+      factor: string;
+      score: number;
+    }>;
+  }) => {
     setSelectedUser(user);
     setProfileTab('overview');
   };
@@ -190,6 +249,7 @@ const App = () => {
               <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
                 className={`p-2 rounded-lg ${darkMode ? 'hover:bg-gray-800/50' : 'hover:bg-gray-200/50'}`}
+                aria-label="Toggle sidebar"
               >
                 <ChevronDown className={`w-5 h-5 transform ${sidebarOpen ? 'rotate-90' : '-rotate-90'}`} />
               </button>
@@ -199,17 +259,18 @@ const App = () => {
             </div>
 
             <div className="flex items-center space-x-4">
-              <button className={`p-2 rounded-lg ${darkMode ? 'hover:bg-gray-800/50' : 'hover:bg-gray-200/50'}`}>
+              <button className={`p-2 rounded-lg ${darkMode ? 'hover:bg-gray-800/50' : 'hover:bg-gray-200/50'}`} aria-label="Notifications">
                 <Bell className="w-5 h-5" />
                 <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
               </button>
               <button
                 onClick={() => setDarkMode(!darkMode)}
                 className={`p-2 rounded-lg ${darkMode ? 'hover:bg-gray-800/50' : 'hover:bg-gray-200/50'}`}
+                aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
               >
                 {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"></div>
+              <div className="w-8 h-8 bg-linear-to-r from-blue-500 to-purple-600 rounded-full"></div>
             </div>
           </div>
         </header>
