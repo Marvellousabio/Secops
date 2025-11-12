@@ -45,7 +45,7 @@ const SettingsPage: React.FC<{ darkMode: boolean }> = ({darkMode}) => {
                 <div key={channel} className="flex items-center justify-between">
                   <span className={`${darkMode ? 'text-white' : 'text-gray-900'}`}>{channel}</span>
                   <label className="relative inline-flex items-center cursor-pointer">
-                    <input type="checkbox" className="sr-only peer" defaultChecked />
+                    <input aria-label='channel' type="checkbox" className="sr-only peer" defaultChecked />
                     <div className={`w-11 h-6 ${darkMode ? 'bg-gray-700' : 'bg-gray-200'} peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600`}></div>
                   </label>
                 </div>
@@ -60,7 +60,7 @@ const SettingsPage: React.FC<{ darkMode: boolean }> = ({darkMode}) => {
             <div className="space-y-4">
               <div>
                 <label className={`block mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Theme</label>
-                <select className={`w-full border rounded-lg px-3 py-2 ${darkMode ? 'bg-gray-700 border-gray-600 text-white' : 'bg-gray-50 border-gray-300 text-gray-900'}`}>
+                <select aria-label='mode' className={`w-full border rounded-lg px-3 py-2 ${darkMode ? 'bg-gray-700 border-gray-600 text-white' : 'bg-gray-50 border-gray-300 text-gray-900'}`}>
                   <option>Dark Mode</option>
                   <option>Light Mode</option>
                   <option>Midnight Blue</option>
@@ -68,7 +68,7 @@ const SettingsPage: React.FC<{ darkMode: boolean }> = ({darkMode}) => {
               </div>
               <div>
                 <label className={`block mb-2 ${darkMode ? 'text-white' : 'text-gray-900'}`}>Density</label>
-                <select className={`w-full border rounded-lg px-3 py-2 ${darkMode ? 'bg-gray-700 border-gray-600 text-white' : 'bg-gray-50 border-gray-300 text-gray-900'}`}>
+                <select aria-label='setting' className={`w-full border rounded-lg px-3 py-2 ${darkMode ? 'bg-gray-700 border-gray-600 text-white' : 'bg-gray-50 border-gray-300 text-gray-900'}`}>
                   <option>Comfortable</option>
                   <option>Compact</option>
                 </select>

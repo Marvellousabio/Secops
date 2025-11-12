@@ -165,6 +165,7 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({
               </div>
             </div>
             <button
+            aria-label='close'
               onClick={() => setSelectedUser(null)}
               className="text-gray-400 hover:text-white p-2"
             >

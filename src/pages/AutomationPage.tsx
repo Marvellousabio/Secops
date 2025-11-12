@@ -26,7 +26,7 @@ const AutomationPage: React.FC<{ darkMode: boolean }> = ({darkMode}) => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <span className={`px-3 py-1 rounded-full text-xs ${darkMode ? 'bg-green-500/20 text-green-400' : 'bg-green-50 text-green-700 border-green-300'}`}>Active</span>
-                  <button className={`${darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'} p-1`}>
+                  <button aria-label="Play playbook" className={`${darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'} p-1`}>
                     <Play className="w-4 h-4 text-green-400" />
                   </button>
                 </div>
@@ -50,7 +50,7 @@ const AutomationPage: React.FC<{ darkMode: boolean }> = ({darkMode}) => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <span className={`px-3 py-1 rounded-full text-xs ${darkMode ? 'bg-yellow-500/20 text-yellow-400' : 'bg-yellow-100 text-yellow-800 border-yellow-400'}`}>Paused</span>
-                  <button className={`${darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'} p-1`}>
+                  <button aria-label="Pause playbook" className={`${darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'} p-1`}>
                     <Pause className="w-4 h-4 text-yellow-400" />
                   </button>
                 </div>
@@ -64,7 +64,7 @@ const AutomationPage: React.FC<{ darkMode: boolean }> = ({darkMode}) => {
                 </div>
                 <div className="flex items-center space-x-3">
                   <span className={`px-3 py-1 rounded-full text-xs ${darkMode ? 'bg-green-500/20 text-green-400' : 'bg-green-50 text-green-700 border-green-300'}`}>Active</span>
-                  <button className={`${darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'} p-1`}>
+                  <button aria-label="Play playbook" className={`${darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'} p-1`}>
                     <Play className="w-4 h-4 text-green-400" />
                   </button>
                 </div>

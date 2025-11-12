@@ -63,10 +63,10 @@ const ReportsPage: React.FC<{ darkMode: boolean }> = ({ darkMode }) => {
                     <div className="flex items-center space-x-3">
                       {report.status === 'ready' ? (
                         <>
-                          <button className={`${darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'} p-2`}>
+                          <button aria-label="View report" className={`${darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'} p-2`}>
                             <Eye className="w-4 h-4" />
                           </button>
-                          <button className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg">
+                          <button aria-label="Download report" className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-lg">
                             <Download className="w-4 h-4" />
                           </button>
                         </>

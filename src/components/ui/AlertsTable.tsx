@@ -56,7 +56,7 @@ const AlertsTable: React.FC<AlertsTableProps> = ({ alerts, getSeverityColor, dar
                 </td>
                 <td className="py-4 px-6 text-right">
                   <div className="flex items-center justify-end space-x-2">
-                    <button className={`p-1 ${darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`}>
+                    <button aria-label='view' className={`p-1 ${darkMode ? 'text-gray-400 hover:text-white' : 'text-gray-600 hover:text-gray-900'}`}>
                       <Eye className="w-4 h-4" />
                     </button>
                     <button className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">
