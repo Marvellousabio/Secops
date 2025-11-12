@@ -27,16 +27,14 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, currentPage, setCurrentP
   ];
 
   return (
-    <div className={`${sidebarOpen ? 'w-64' : 'w-20'} fixed h-full ${darkMode ? 'bg-gray-800' : 'bg-white'} border-r ${darkMode ? 'border-gray-700' : 'border-gray-200'} transition-all duration-300 z-50`}>
-      <div className={`p-4 border-b ${darkMode ? 'border-gray-700' : 'border-gray-200'}`}>
+  <div className={`${sidebarOpen ? 'w-64' : 'w-20'} fixed h-full transition-all duration-300 z-50 sidebar ${darkMode ? 'dark-mode' : 'light-mode'}`}>
+      <div className="sidebar-header">
         <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-            <Shield className="w-5 h-5 text-white" />
+          <div className="brand-icon w-8 h-8 rounded-lg flex items-center justify-center">
+            <Shield className="w-5 h-5" />
           </div>
           {sidebarOpen && (
-            <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-              SecOps
-            </span>
+            <span className="brand-text">SecOps</span>
           )}
         </div>
       </div>
@@ -48,11 +46,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, currentPage, setCurrentP
             <button
               key={item.id}
               onClick={() => setCurrentPage(item.id)}
-              className={`w-full flex items-center space-x-3 px-3 py-3 rounded-lg transition-colors ${
-                currentPage === item.id
-                  ? 'bg-blue-600 text-white'
-                  : darkMode ? 'hover:bg-gray-700 text-gray-300' : 'hover:bg-gray-200 text-gray-700'
-              }`}
+              className={`menu-item ${currentPage === item.id ? 'active' : ''}`}
             >
               <Icon className="w-5 h-5" />
               {sidebarOpen && <span>{item.label}</span>}
@@ -62,12 +56,12 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, currentPage, setCurrentP
       </nav>
 
       <div className="absolute bottom-4 left-4 right-4">
-        <div className={`flex items-center space-x-3 p-3 ${darkMode ? 'bg-gray-700/50' : 'bg-gray-200/50'} rounded-lg`}>
-          <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"></div>
+        <div className={`profile-card rounded-lg`}>
+          <div className="profile-avatar"></div>
           {sidebarOpen && (
             <div className="flex-1 min-w-0">
-              <p className={`${darkMode ? 'text-white' : 'text-gray-900'} text-sm font-medium truncate`}>Alex Morgan</p>
-              <p className={`${darkMode ? 'text-gray-400' : 'text-gray-600'} text-xs truncate`}>Security Analyst</p>
+              <p className="text-sm font-medium truncate profile-name">Alex Morgan</p>
+              <p className="text-xs truncate profile-role">Security Analyst</p>
             </div>
           )}
         </div>

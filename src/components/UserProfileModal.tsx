@@ -274,13 +274,13 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({
                   <div className="flex flex-col items-center">
                     <div className="w-32 h-32 relative">
                       <svg className="w-32 h-32" viewBox="0 0 100 100">
-                        <circle cx="50" cy="50" r="45" fill="none" stroke="#374151" strokeWidth="8" />
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="var(--border-color)" strokeWidth="8" />
                         <circle
                           cx="50"
                           cy="50"
                           r="45"
                           fill="none"
-                          stroke={selectedUser.riskScore >= 80 ? "#EF4444" : selectedUser.riskScore >= 60 ? "#F59E0B" : selectedUser.riskScore >= 40 ? "#EAB308" : "#10B981"}
+                          stroke={selectedUser.riskScore >= 80 ? "var(--color-danger)" : selectedUser.riskScore >= 60 ? "var(--color-brand-secondary)" : selectedUser.riskScore >= 40 ? "var(--color-brand-primary)" : "var(--color-success)"}
                           strokeWidth="8"
                           strokeDasharray={`${2 * Math.PI * 45}`}
                           strokeDashoffset={`${2 * Math.PI * 45 * (1 - selectedUser.riskScore / 100)}`}
@@ -351,46 +351,46 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({
                       data={chartData}
                       margin={{ top: 20, right: 30, left: 20, bottom: 30 }}
                     >
-                      <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+                      <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" />
                       <XAxis
                         dataKey="date"
-                        stroke={darkMode ? "#9CA3AF" : "#6B7280"}
+                        stroke={"var(--text-secondary)"}
                         tick={{ fontSize: 12 }}
                       />
                       <YAxis
-                        stroke={darkMode ? "#9CA3AF" : "#6B7280"}
+                        stroke={"var(--text-secondary)"}
                         domain={[0, 100]}
                         tick={{ fontSize: 12 }}
                         label={{
                           value: 'Risk Score',
                           angle: -90,
                           position: 'insideLeft',
-                          fill: darkMode ? "#9CA3AF" : "#6B7280",
+                          fill: "var(--text-secondary)",
                           fontSize: 12
                         }}
                       />
                       <Tooltip
                         content={<BehavioralTooltip />}
-                        cursor={{ stroke: '#4B5563', strokeWidth: 1, strokeDasharray: '3 3' }}
+                          cursor={{ stroke: 'var(--border-color)', strokeWidth: 1, strokeDasharray: '3 3' }}
                       />
                       <Area
                         type="monotone"
                         dataKey="riskScore"
                         name="Risk Score"
-                        stroke="#3B82F6"
+                        stroke={"var(--color-brand-primary)"}
                         strokeWidth={2}
                         fill="url(#riskScoreGradient)"
                         fillOpacity={0.2}
                         dot={{
                           r: 4,
-                          fill: "#3B82F6",
-                          stroke: darkMode ? "#1E293B" : "#FFFFFF",
+                          fill: "var(--color-brand-primary)",
+                          stroke: "var(--bg-surface)",
                           strokeWidth: 2
                         }}
                         activeDot={{
                           r: 6,
-                          fill: "#3B82F6",
-                          stroke: darkMode ? "#1E293B" : "#FFFFFF",
+                          fill: "var(--color-brand-primary)",
+                          stroke: "var(--bg-surface)",
                           strokeWidth: 2
                         }}
                       />
@@ -400,18 +400,18 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({
                         type="monotone"
                         dataKey="loginCount"
                         name="Login Count"
-                        stroke="#8B5CF6"
+                        stroke={"var(--color-brand-secondary)"}
                         strokeWidth={2}
                         dot={{
                           r: 3,
-                          fill: "#8B5CF6",
-                          stroke: darkMode ? "#1E293B" : "#FFFFFF",
+                          fill: "var(--color-brand-secondary)",
+                          stroke: "var(--bg-surface)",
                           strokeWidth: 1
                         }}
                         activeDot={{
                           r: 5,
-                          fill: "#8B5CF6",
-                          stroke: darkMode ? "#1E293B" : "#FFFFFF",
+                          fill: "var(--color-brand-secondary)",
+                          stroke: "var(--bg-surface)",
                           strokeWidth: 2
                         }}
                       />
@@ -421,18 +421,18 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({
                         type="monotone"
                         dataKey="dataAccess"
                         name="Data Access (MB)"
-                        stroke="#10B981"
+                        stroke={"var(--color-success)"}
                         strokeWidth={2}
                         dot={{
                           r: 3,
-                          fill: "#10B981",
-                          stroke: darkMode ? "#1E293B" : "#FFFFFF",
+                          fill: "var(--color-success)",
+                          stroke: "var(--bg-surface)",
                           strokeWidth: 1
                         }}
                         activeDot={{
                           r: 5,
-                          fill: "#10B981",
-                          stroke: darkMode ? "#1E293B" : "#FFFFFF",
+                          fill: "var(--color-success)",
+                          stroke: "var(--bg-surface)",
                           strokeWidth: 2
                         }}
                       />
@@ -440,8 +440,8 @@ const UserProfileModal: React.FC<UserProfileModalProps> = ({
                       {/* Define gradients */}
                       <defs>
                         <linearGradient id="riskScoreGradient" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor="#3B82F6" stopOpacity={0.4}/>
-                          <stop offset="95%" stopColor="#3B82F6" stopOpacity={0.05}/>
+                          <stop offset="5%" stopColor="var(--color-brand-primary)" stopOpacity={0.4}/>
+                            <stop offset="95%" stopColor="var(--color-brand-primary)" stopOpacity={0.05}/>
                         </linearGradient>
                       </defs>
                     </AreaChart>

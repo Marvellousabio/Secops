@@ -193,19 +193,19 @@ const App = () => {
   const getSeverityColor = (severity: string, darkMode: boolean) => {
     if (darkMode) {
       switch (severity) {
-        case 'critical': return 'bg-red-500/20 text-red-400 border-red-500/30';
-        case 'high': return 'bg-orange-500/20 text-orange-400 border-orange-500/30';
-        case 'medium': return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30';
-        case 'low': return 'bg-green-500/20 text-green-400 border-green-500/30';
-        default: return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
+        case 'critical': return 'severity-critical-dark';
+        case 'high': return 'severity-high-dark';
+        case 'medium': return 'severity-medium-dark';
+        case 'low': return 'severity-low-dark';
+        default: return 'severity-medium-dark';
       }
     } else {
       switch (severity) {
-        case 'critical': return 'bg-red-50 text-red-700 border-red-300';
-        case 'high': return 'bg-orange-50 text-orange-700 border-orange-300';
-        case 'medium': return 'bg-yellow-100 text-yellow-800 border-yellow-400';
-        case 'low': return 'bg-green-50 text-green-700 border-green-300';
-        default: return 'bg-gray-100 text-gray-700 border-gray-300';
+        case 'critical': return 'severity-critical-light';
+        case 'high': return 'severity-high-light';
+        case 'medium': return 'severity-medium-light';
+        case 'low': return 'severity-low-light';
+        default: return 'severity-medium-light';
       }
     }
   };
@@ -232,7 +232,10 @@ const App = () => {
   ];
 
   return (
-    <div className={`min-h-screen ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
+    <div className={`min-h-screen ${darkMode ? 'dark-mode' : 'light-mode'}`} style={{
+      backgroundColor: darkMode ? 'var(--bg-primary)' : 'var(--bg-primary)',
+      color: darkMode ? 'var(--text-primary)' : 'var(--text-primary)'
+    }}>
       <Sidebar
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
@@ -243,12 +246,18 @@ const App = () => {
       {/* Main Content */}
       <div className={`${sidebarOpen ? 'ml-64' : 'ml-20'} transition-all duration-300`}>
         {/* Top Navigation */}
-        <header className={`sticky top-0 z-40 ${darkMode ? 'bg-gray-900/80 backdrop-blur-sm border-b border-gray-800' : 'bg-white/80 backdrop-blur-sm border-b border-gray-200'}`}>
+        <header className={`sticky top-0 z-40 backdrop-blur-sm border-b`} style={{
+          backgroundColor: darkMode ? 'var(--bg-surface)' : 'var(--bg-surface)',
+          borderColor: darkMode ? 'var(--border-color)' : 'var(--border-color)'
+        }}>
           <div className="flex items-center justify-between p-4">
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className={`p-2 rounded-lg ${darkMode ? 'hover:bg-gray-800/50' : 'hover:bg-gray-200/50'}`}
+                className="p-2 rounded-lg hover:opacity-80"
+                style={{
+                  backgroundColor: darkMode ? 'var(--accent-background)' : 'var(--accent-background)'
+                }}
                 aria-label="Toggle sidebar"
               >
                 <ChevronDown className={`w-5 h-5 transform ${sidebarOpen ? 'rotate-90' : '-rotate-90'}`} />
@@ -259,18 +268,25 @@ const App = () => {
             </div>
 
             <div className="flex items-center space-x-4">
-              <button className={`p-2 rounded-lg ${darkMode ? 'hover:bg-gray-800/50' : 'hover:bg-gray-200/50'}`} aria-label="Notifications">
+              <button className="p-2 rounded-lg hover:opacity-80" style={{
+                backgroundColor: darkMode ? 'var(--accent-background)' : 'var(--accent-background)'
+              }} aria-label="Notifications">
                 <Bell className="w-5 h-5" />
-                <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
+                <span className="absolute top-2 right-2 w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--color-danger)' }}></span>
               </button>
               <button
                 onClick={() => setDarkMode(!darkMode)}
-                className={`p-2 rounded-lg ${darkMode ? 'hover:bg-gray-800/50' : 'hover:bg-gray-200/50'}`}
+                className="p-2 rounded-lg hover:opacity-80"
+                style={{
+                  backgroundColor: darkMode ? 'var(--accent-background)' : 'var(--accent-background)'
+                }}
                 aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
               >
                 {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
-              <div className="w-8 h-8 bg-linear-to-r from-blue-500 to-purple-600 rounded-full"></div>
+              <div className="w-8 h-8 rounded-full" style={{
+                background: `linear-gradient(to right, var(--color-brand-primary), var(--color-brand-secondary))`
+              }}></div>
             </div>
           </div>
         </header>

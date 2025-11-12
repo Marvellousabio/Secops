@@ -1,1 +1,199 @@
 @import "tailwindcss";
+
+/* Core Colors (Constant) */
+:root {
+  --color-brand-primary: #AE328E; /* Wema Purple */
+  --color-brand-secondary: #425563; /* Dark Accent */
+  --color-success: #28A745;
+  --color-danger: #DC3545;
+  /* RGB fallbacks for alpha usage */
+  --color-brand-primary-rgb: 174, 50, 142;
+  --color-brand-secondary-rgb: 66, 85, 99;
+  --color-success-rgb: 40, 167, 69;
+  --color-danger-rgb: 220, 53, 69;
+
+  /* Default (fallback to light mode values) */
+  --bg-primary: #FFFFFF; /* Light mode default background */
+  --bg-surface: #FFFFFF;
+  --text-primary: #1A1A1A; /* Light mode primary text */
+  --text-secondary: var(--color-brand-secondary);
+  --border-color: #E5E7EB;
+  --accent-background: #FFF0FA;
+  --primary-button-text: #FFFFFF;
+}
+
+/* Default: Light Mode */
+.light-mode {
+  /* Backgrounds */
+  --bg-primary: #FFFFFF; /* Light Neutral */
+  --bg-surface: #FFFFFF;
+
+  /* Text */
+  --text-primary: #1A1A1A; /* Dark Neutral */
+  --text-secondary: var(--color-brand-secondary); /* Secondary Brand */
+
+  /* Structure */
+  --border-color: #E5E7EB;
+  --accent-background: #FFF0FA;
+}
+
+/* Dark Mode */
+.dark-mode {
+  /* Backgrounds */
+  --bg-primary: #121212; /* BackgroundDark Neutral */
+  --bg-surface: #1F1F1F;
+
+  /* Text */
+  --text-primary: #F0F0F0; /* Off-white for high contrast */
+  --text-secondary: #A8A8A8; /* Muted */
+
+  /* Structure */
+  --border-color: #374151;
+  --accent-background: #3E324F;
+  --primary-button-text: #FFFFFF;
+}
+
+/* Sidebar & component helpers that use theme variables */
+.sidebar {
+  height: 100%;
+  color: var(--text-primary);
+  background-color: var(--bg-surface);
+  border-right: 1px solid var(--border-color);
+}
+
+.sidebar-header {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.brand-icon {
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background-color: var(--color-brand-primary);
+  color: var(--primary-button-text);
+}
+
+.brand-text {
+  font-weight: 700;
+  font-size: 1.125rem;
+  background: linear-gradient(90deg, var(--color-brand-primary), var(--color-brand-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.menu-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.75rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  color: var(--text-secondary);
+}
+.menu-item:hover {
+  background-color: rgba(var(--color-brand-primary-rgb), 0.06);
+  color: var(--text-primary);
+}
+.menu-item.active {
+  background-color: var(--color-brand-primary);
+  color: var(--primary-button-text);
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background-color: rgba(66,85,99,0.06);
+}
+.profile-avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--color-brand-secondary), var(--color-brand-primary));
+}
+/* profile text helpers to avoid inline styles */
+.profile-name { color: var(--text-primary); }
+.profile-role { color: var(--text-secondary); }
+
+/* Global element styles using theme variables */
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.surface {
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+a {
+  color: var(--color-brand-primary);
+}
+
+.border {
+  border-color: var(--border-color);
+}
+
+.accent {
+  background-color: var(--accent-background);
+}
+
+/* Severity Colors - Dark Mode */
+.severity-critical-dark {
+  background-color: rgba(var(--color-danger-rgb), 0.18);
+  color: var(--color-danger);
+  border: 1px solid rgba(var(--color-danger-rgb), 0.28);
+}
+.severity-high-dark {
+  background-color: rgba(var(--color-brand-primary-rgb), 0.18);
+  color: var(--color-brand-primary);
+  border: 1px solid rgba(var(--color-brand-primary-rgb), 0.28);
+}
+.severity-medium-dark {
+  background-color: rgba(var(--color-brand-secondary-rgb), 0.14);
+  color: var(--color-brand-secondary);
+  border: 1px solid rgba(var(--color-brand-secondary-rgb), 0.22);
+}
+.severity-low-dark {
+  background-color: rgba(var(--color-success-rgb), 0.14);
+  color: var(--color-success);
+  border: 1px solid rgba(var(--color-success-rgb), 0.22);
+}
+
+/* Severity Colors - Light Mode */
+.severity-critical-light {
+  background-color: rgba(var(--color-danger-rgb), 0.08);
+  color: var(--color-danger);
+  border: 1px solid rgba(var(--color-danger-rgb), 0.14);
+}
+.severity-high-light {
+  background-color: rgba(var(--color-brand-primary-rgb), 0.08);
+  color: var(--color-brand-primary);
+  border: 1px solid rgba(var(--color-brand-primary-rgb), 0.14);
+}
+.severity-medium-light {
+  background-color: rgba(var(--color-brand-secondary-rgb), 0.06);
+  color: var(--color-brand-secondary);
+  border: 1px solid rgba(var(--color-brand-secondary-rgb), 0.12);
+}
+.severity-low-light {
+  background-color: rgba(var(--color-success-rgb), 0.06);
+  color: var(--color-success);
+  border: 1px solid rgba(var(--color-success-rgb), 0.12);
+}
